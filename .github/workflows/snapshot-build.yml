@@ -26,5 +26,6 @@ jobs:
         with:
           modrinth-id: CqxOjE5k
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          version-type: alpha
           files: build/libs/!(*-@(dev|sources|javadoc)).jar
           # auto detect verions
