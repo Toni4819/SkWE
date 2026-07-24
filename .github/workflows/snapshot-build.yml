@@ -29,3 +29,5 @@ jobs:
           name: "${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.SHORT_SHA }}"
           version: "${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.SHORT_SHA }}"
           version-type: alpha
+          loaders: |
+            paper
