@@ -25,9 +25,11 @@ jobs:
         with:
           modrinth-id: d6oSmi5a
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          files: build/libs/*.jar
+          files: build/libs/*-all.jar
           name: "${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.SHORT_SHA }}"
           version: "${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.SHORT_SHA }}"
           version-type: alpha
           loaders: |
             paper
+          game-versions: |
+            >=1.21.1
