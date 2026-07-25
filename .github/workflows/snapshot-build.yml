@@ -2,22 +2,18 @@ name: Snapshot Build
 on:
   push:
     branches: [ "master" ]
-
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-
       - name: Build with Gradle
         run: ./gradlew build
-
       - name: Read plugin version
         id: plugin_version
         run: |
@@ -25,19 +21,25 @@ jobs:
           CLEAN_VERSION=$(echo "$RAW_VERSION" | tr -d "'\"")
           echo "VERSION=$CLEAN_VERSION" >> "$GITHUB_OUTPUT"
           echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
-
-
-      - name: Publish to Modrinth
-        if: success()
-        uses: Kir-Antipov/mc-publish@v3.3
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
         with:
-          modrinth-id: CqxOjE5k
-          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          files: build/libs/*.jar
           name: "${{ steps.plugin_version.outputs.VERSION }}-${{ steps.plugin_version.outputs.SHORT_SHA }}"
-          version: "${{ steps.plugin_version.outputs.VERSION }}-${{ steps.plugin_version.outputs.SHORT_SHA }}"
-          version-type: alpha
-          loaders: |
-            paper
-          game-versions: |
-            >=1.21.1
+          path: build/libs/*.jar
+          retention-days: 30
+
+
+#      - name: Publish to Modrinth
+#        if: success()
+#        uses: Kir-Antipov/mc-publish@v3.3
+#        with:
+#          modrinth-id: <id>
+#          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+#          files: build/libs/*.jar
+#          name: "${{ steps.plugin_version.outputs.VERSION }}-${{ steps.plugin_version.outputs.SHORT_SHA }}"
+#          version: "${{ steps.plugin_version.outputs.VERSION }}-${{ steps.plugin_version.outputs.SHORT_SHA }}"
+#          version-type: alpha
+#          loaders: |
+#            paper
+#          game-versions: |
+#            >=1.21.1
