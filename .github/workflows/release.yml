@@ -41,17 +41,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish to Modrinth
-        uses: Kir-Antipov/mc-publish@v3.3
-        with:
-          modrinth-id: CqxOjE5k
-          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          files: build/libs/*.jar
-          name: "${{ steps.get_version.outputs.VERSION }}"
-          version: "${{ steps.get_version.outputs.VERSION }}"
-          version-type: release
-          changelog: ${{ steps.gh_release.outputs.body }}
-          loaders: |
-            paper
-          game-versions: |
-            >=1.21
+#      - name: Publish to Modrinth
+#        uses: Kir-Antipov/mc-publish@v3.3
+#        with:
+#          modrinth-id: <id>
+#          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+#          files: build/libs/*.jar
+#          name: "${{ steps.get_version.outputs.VERSION }}"
+#          version: "${{ steps.get_version.outputs.VERSION }}"
+#          version-type: release
+#          changelog: ${{ steps.gh_release.outputs.body }}
+#          loaders: |
+#            paper
+#          game-versions: |
+#            >=1.21
