@@ -40,7 +40,7 @@ public class Types {
                 .since("1.0.0"));
 
         EnumWrapper<TreeGenerator.TreeType> TREE_ENUM = new EnumWrapper<>(TreeGenerator.TreeType.class);
-        Classes.registerClass(TREE_ENUM.getClassInfo("treetype")
+        Classes.registerClass(TREE_ENUM.getClassInfo("wetreetype")
                 .user("(world ?edit ?)?tree ?types?")
                 .name("Tree Types")
                 .description("All the supported tree types that WorldEdit can use.")
