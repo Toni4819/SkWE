@@ -21,9 +21,11 @@ jobs:
       - name: Read plugin version
         id: plugin_version
         run: |
-          VERSION=$(grep -E '^version:' src/main/resources/plugin.yml | sed 's/version: //')
-          echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
+          RAW_VERSION=$(grep -E '^version:' src/main/resources/plugin.yml | sed 's/version: //')
+          CLEAN_VERSION=$(echo "$RAW_VERSION" | tr -d "'\"")
+          echo "VERSION=$CLEAN_VERSION" >> "$GITHUB_OUTPUT"
           echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
 
       - name: Publish to Modrinth
         if: success()
